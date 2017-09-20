@@ -20,7 +20,7 @@ mongoose.connect(mongoURL,{
 
 
 exports.keepData=mongoose.model('keepData',{
- id : Number,
+ 
  color :String,
 brand : String,
 price : Number,

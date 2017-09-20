@@ -16,26 +16,34 @@ app.use(JsonParser());
 
 app.get('/api/shoes', function(req, res) {
   var shoes = req.params.shoes;
-  shoeRec.keepData.findOne({
-    id:5869,
-   color:'red',
-   brand:'nike',
-   price:2500,
-   size:6,
-   in_stock:15
-  }, function(err, shoeCase) {
+  shoeRec.keepData.find({}, function(err, shoeCase) {
     if (err) {
       console.log(err);
-    } else if (!shoeCase){
-      res.json({
-        id:5869,
-       color:'red',
-       brand:'nike',
-       price:2500,
-       size:6,
-       in_stock:15
-      })
+    } else {
+      shoeRec.keepData.create({
 
+        color: shoes,
+        brand: shoes,
+        price: shoes,
+        size: shoes,
+        in_stock: shoes
+      }, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+
+          res.json({
+            
+    color:results,
+    brand:results,
+    price:results,
+    size:results,
+    in_stock:results
+
+
+          })
+        }
+      })
     }
 
   })
@@ -45,9 +53,11 @@ app.get('/api/shoes', function(req, res) {
 
 app.get('/api/shoes/brand/:brandname', function(req, res) {
   var brandname = req.params.brandname;
+
   shoeRec.keepData.find({
     brand: brandname
   }, function(err, shoeBox) {
+    console.log();
     if (err) {
       console.log(err);
     } else {
@@ -62,81 +72,95 @@ app.get('/api/shoes/brand/:brandname', function(req, res) {
 app.get('/api/shoes/size/:size', function(req, res) {
   var size = req.params.size;
   shoeRec.keepData.find({
-     size:6
-},function(err,results){
-  if(err){
-    console.log(err);
-  }
-  else if(results){
-    res.json({
-    size: results
-    })
-  }
-})
+    size: size
+  }, function(err, results) {
+    if (err) {
+      console.log(err);
+    } else if (results) {
+      res.json({
+        size: results
+      })
+    }
+  })
 })
 
 
-app.get('/api/shoes/brand/:brandname/size/:size',function(req,res){
+app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
   var size = req.params.size;
-    var brandname = req.params.brandname;
-    shoeRec.keepData.find({
-      size:7,
-      brand:'puma'
-},function(err,sizeWthbrand){
-  if(err){
-    console.log(err);
-  }
-  else if(sizeWthbrand){
-    res.json({
-      size:7,
-      brand:'puma'
-    })
-  }
-})
+  var brandname = req.params.brandname;
+  shoeRec.keepData.find({
+    size: size,
+    brand: brandname
+  }, function(err, sizeWthbrand) {
+    if (err) {
+      console.log(err);
+    } else if (sizeWthbrand) {
+      res.json({
+        size: 7,
+        brand: 'puma'
+      })
+    }
+  })
 })
 
-	app.post('/api/shoes/sold/:id',function(req,res){
-    var id= req.params.id;
-    shoeRec.keepData.findOneAndUpdate({
-      id:5869
-    },{
-      in_stock: in_stock -1
-    },function(err,shoeUpdate){
-      if(err){
-        console.log(err);
-      }
-      else
-      {
-        if(!shoeUpdate){
-        var newShoe=new shoeRec.keepData({
-          id:5869
+app.post('/api/shoes/sold/:id', function(req, res) {
+
+  shoeRec.keepData.findOneAndUpdate({
+    id: id
+  }, {
+    in_stock: in_stock - 1
+  }, function(err, shoeUpdate) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!shoeUpdate) {
+        var newShoe = new shoeRec.keepData({
+          id: id
         })
-        newShoe.save(function(err,results){
-          if(err){
+        newShoe.save(function(err, results) {
+          if (err) {
             console.log(err);
-          }
-          else{
+          } else {
             res.json({
-              id:5869
+              id: id
             })
           }
         })
       }
 
 
-  }
+    }
 
+  })
 })
-})
 
 
-app.post('/',function(req,res){
+app.post('/api/shoes', function(req, res) {
+var shoes=req.body
+  shoeRec.keepData.findOne({}, function(err, shoeCase) {
+    if (err) {
+      console.log(err);
+    } else {
+      shoeRec.keepData.create({
 
+        color: shoes.color,
+        brand: shoes.brand,
+        price: shoes.price,
+        size: shoes.size,
+        in_stock: shoes.in_stock
+      }, function(err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+
+          res.send(results)
+        }
+      })
+    }
+
+  })
 
 });
-
-
-
 
 
 
