@@ -19,8 +19,8 @@ mongoose.connect(mongoURL,{
 });
 
 
-exports.keepData=mongoose.model('keepData',{
- 
+exports.keepData=mongoose.model('keepdatas',{
+
  color :String,
 brand : String,
 price : Number,

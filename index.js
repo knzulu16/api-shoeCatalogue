@@ -3,6 +3,7 @@ var express = require("express");
 var app = express();
 var JsonParser = require("body-parser").json;
 var shoeRec = require("./routes");
+var ObjectId = require('mongodb').ObjectId;
 // var data=require("./data");
 
 var logger = require("morgan");
@@ -20,35 +21,19 @@ app.get('/api/shoes', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      shoeRec.keepData.create({
-
-        color: shoes,
-        brand: shoes,
-        price: shoes,
-        size: shoes,
-        in_stock: shoes
-      }, function(err, results) {
-        if (err) {
-          console.log(err);
-        } else {
-
-          res.json({
-            
-    color:results,
-    brand:results,
-    price:results,
-    size:results,
-    in_stock:results
 
 
-          })
-        }
+      res.json({
+        shoeCase
+
       })
     }
-
   })
-
 });
+
+
+
+
 
 
 app.get('/api/shoes/brand/:brandname', function(req, res) {
@@ -94,73 +79,104 @@ app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
   }, function(err, sizeWthbrand) {
     if (err) {
       console.log(err);
-    } else if (sizeWthbrand) {
+    } else {
       res.json({
-        size: 7,
-        brand: 'puma'
+        size: sizeWthbrand,
+        brand: sizeWthbrand
       })
     }
   })
 })
 
-app.post('/api/shoes/sold/:id', function(req, res) {
-
-  shoeRec.keepData.findOneAndUpdate({
-    id: id
-  }, {
-    in_stock: in_stock - 1
-  }, function(err, shoeUpdate) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (!shoeUpdate) {
-        var newShoe = new shoeRec.keepData({
-          id: id
-        })
-        newShoe.save(function(err, results) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.json({
-              id: id
-            })
+app.post('/api/shoes/sold', function(req, res) {
+      console.log(req.body.id);
+      var id = req.body.id;
+      shoeRec.keepData.findOneAndUpdate({
+          _id: ObjectId(id)
+        }, {
+          $inc: {
+            "in_stock": -1
           }
-        })
-      }
+        },  function(err, results) {
+            if (err) {
+              console.log(err);
+            } else  if (!results) {
+                var newShoe = new shoeRec.keepData({
+                  _id: ObjectId(id)
+                },{
+                  $inc:{
+                    "in_stock":1
+                  }
+                })
+                newShoe.save(function(err, results) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    //  in_stock:results
 
+              res.send(results)
 
-    }
-
-  })
+            }
+          })
+}
+})
 })
 
 
-app.post('/api/shoes', function(req, res) {
-var shoes=req.body
-  shoeRec.keepData.findOne({}, function(err, shoeCase) {
-    if (err) {
-      console.log(err);
-    } else {
-      shoeRec.keepData.create({
 
-        color: shoes.color,
-        brand: shoes.brand,
-        price: shoes.price,
-        size: shoes.size,
-        in_stock: shoes.in_stock
-      }, function(err, results) {
+          // , function(err, shoeUpdate) {
+          //   if (err) {
+          //     console.log(err);
+          //   }
+          // } else {
+          //   if (!shoeUpdate) {
+          //     var newShoe = new shoeRec.keepData({
+          //       id: id
+          //     })
+          //     newShoe.save(function(err, results) {
+          //       if (err) {
+          //         console.log(err);
+          //       } else {
+          //        res.json({
+          //          in_stock:results
+          //        })
+          //      }
+          //    })
+
+
+
+          //})
+
+
+
+
+
+    app.post('/api/shoes', function(req, res) {
+      var shoes = req.body
+      shoeRec.keepData.findOne({}, function(err, shoeCase) {
         if (err) {
           console.log(err);
         } else {
+          shoeRec.keepData.create({
 
-          res.send(results)
+            color: shoes.color,
+            brand: shoes.brand,
+            price: shoes.price,
+            size: shoes.size,
+            in_stock: shoes.in_stock
+          }, function(err, results) {
+            if (err) {
+              console.log(err);
+            } else {
+
+              res.send(results)
+            }
+          })
         }
+
       })
-    }
 
-  })
-
-});
+    });
 
 
 
@@ -170,20 +186,19 @@ var shoes=req.body
 
 
 
-// var jsonCheck=function(req,res,next){
-//   if(req.body){
-//   console.log("The sky is", req.query.color);
-// }else{
-//   console.log("There is no body property on the request");
-// }
-//   next();
-//
-// }
-// app.use(jsonCheck);
-// app.use(jsonCheck);
+    // var jsonCheck=function(req,res,next){
+    //   if(req.body){
+    //   console.log("The sky is", req.query.color);
+    // }else{
+    //   console.log("There is no body property on the request");
+    // }
+    //   next();
+    //
+    // }
+    // app.use(jsonCheck);
+    // app.use(jsonCheck);
 
 
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
-  console.log("Express server is listening on port", port);
-});
+    var port = process.env.PORT || 3000; app.listen(port, function() {
+      console.log("Express server is listening on port", port);
+    });
