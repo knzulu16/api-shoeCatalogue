@@ -1,15 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <title></title>
-    <h1>API SHOE CATALOGUE</h1>
-  </head>
-  <body>
 
-  </body>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="normalize.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="api.js">
+  <script type="text/javascript" src="handlebars-v4.0.5.js"></script>
+
+
+  <title></title>
+  <h1 id="header">API SHOE CATALOGUE</h1>
+</head>
+
+<body>
+  <div class="row">
+
+    <div class="col-xs-4">
+      <img class="img-responsive" src="nike-0152-966771-2-detail.jpg" alt="nike" style="width:150px">
+      <p>Brand:Nike</p>
+      <p>Color:Black</p>
+      <p>Size:7</p>
+      <p> Price:1500</p>
+    </div>
+
+    <div class="col-xs-4">
+      <img class="img-responsive" src="20942074_0340_0340.jpg" alt="nike" style="width:150px">
+      <p>Brand:Lacoste</p>
+      <p>Color:Brown</p>
+      <p>Size:6</p>
+      <p> Price:2000</p>
+
+    </div>
+
+    <div class="col-xs-4">
+      <img class="img-responsive" src="adidas-2865-577591-1-catalog1.jpg" alt="nike" style="width:150px">
+      <p>Brand:Adidas</p>
+      <p>Color:Grey</p>
+      <p>Size:5</p>
+      <p> Price:3000</p>
+    </div>
+  </div>
+  <br></br>
+  <button type="submit" class="btn btn-primary">Add Stock</button>
+
+  <script id="myTemplate" type="text/x-handlebars-template">
+
+    <select class="brandDrpDwn">
+    <option class="brandTemplate" value="">Select Brand</option>
+    {{#each shoes}}
+    <option class="brandTemplate" value="{{Brand}}">{{Brand}}</option>
+    {{/each}}
+    </select>
+
+    <select class="colorDrpDwn">
+    <option color="colorTemplate" value="">Select Color</option>
+    {{#each shoes}}
+    <option class="colorTemplate" value="{{Color}}">{{Color}}</option>
+    {{/each}}
+   </select>
+
+    <select class="sizeDrpDwn">
+        <option class="sizeTemplate" value="">Select Size</option>
+        {{#each shoes}}
+        <option class="sizeTemplate" value="{{Size}}">{{Size}}</option>
+        {{/each}}
+        </select>
+    <br>
+    <select class='priceDrDwn'>
+        <option class="priceTemplate" value="">Select Price</option>
+        {{#each shoes}}
+        <option class="priceTemplate" value="{{Price}}">{{Price}}</option>
+        {{/each}}
+        </select>
+
+
+
+  </script>
+  <div class="shoeDisplay"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
 </html>

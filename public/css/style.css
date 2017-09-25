@@ -1,0 +1,22 @@
+html{
+  background-color: skyblue;
+}
+
+
+#header{
+  background-color: navy;
+
+  width: 100%;
+  color:white;
+  text-align: center;
+  margin-top: auto;
+padding: 1em;
+
+
+}
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
