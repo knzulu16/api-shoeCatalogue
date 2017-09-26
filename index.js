@@ -88,39 +88,52 @@ app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
   })
 })
 
-app.post('/api/shoes/sold', function(req, res) {
+app.post('/api/shoes/sold/:id', function(req, res) {
       console.log(req.body.id);
-      var id = req.body.id;
+      var id = req.params.id;
       shoeRec.keepData.findOneAndUpdate({
           _id: ObjectId(id)
         }, {
           $inc: {
             "in_stock": -1
           }
+        },{
+          upsert:false
+
         },  function(err, results) {
             if (err) {
               console.log(err);
-            } else  if (!results) {
-                var newShoe = new shoeRec.keepData({
-                  _id: ObjectId(id)
-                },{
-                  $inc:{
-                    "in_stock":1
-                  }
+
+              // else  if (!results) {
+                // var newShoe = new shoeRec.keepData({
+                //   _id: ObjectId(id)
+                // },{
+                //   $inc:{
+                //     "in_stock":1
+                //   }
+                // })
+                // newShoe.save(function(err, results) {
+                return res.json({
+                  status:"error",
+                  error:err,
+                  data:[]
                 })
-                newShoe.save(function(err, results) {
-                  if (err) {
-                    console.log(err);
-                  } else {
+              }
+
+
+                   else {
                     //  in_stock:results
 
-              res.send(results)
+              res.json({
+                status:"success",
+                data:results
+              })
 
             }
           })
-}
 })
-})
+
+
 
 
 

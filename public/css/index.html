@@ -44,7 +44,7 @@
     </div>
   </div>
   <br></br>
-  <button type="submit" class="btn btn-primary">Add Stock</button>
+  <button type="submit" id="addStock" class="btn btn-primary">Add Stock</button>
 
   <script id="myTemplate" type="text/x-handlebars-template">
 
@@ -75,14 +75,25 @@
         <option class="priceTemplate" value="{{Price}}">{{Price}}</option>
         {{/each}}
         </select>
-
-
+        <button type="submit" class="btn btn-primary" id="searching">Search</button>
+    <br>
 
   </script>
+  <div class="addingStock">
+  <form>
+
+    <input type="text" name="Brand" id="shoe-brand" placeholder="Enter Brand name" class="reg-firstname" aria-required="true">
+    <br>
+    <input type="text" name="Color" id="shoe-color" placeholder="Enter color " class="reg-firstname" aria-required="true">
+    <br>
+    <input type="text" name="Size" id="shoe-size" placeholder="Enter Size" class="reg-firstname" aria-required="true">
+    <br>
+    <input type="text" name="Price" id="shoe-price" class="reg-lastname" placeholder="Enter Price" aria-required="true" >
+    <br>
+    <input type="text" name="in_stock" class="reg-password" placeholder="Enter in_stock" id="shoe-price" aria-required="true">
+  </form>
+</div>
   <div class="shoeDisplay"></div>
-
-
-
 
 
 
@@ -95,4 +106,5 @@
 
 </body>
 <script src="api.js" charset="utf-8"></script>
+
 </html>
