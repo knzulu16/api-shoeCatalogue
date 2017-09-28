@@ -5,6 +5,15 @@ var JsonParser = require("body-parser").json;
 var shoeRec = require("./routes");
 var ObjectId = require('mongodb').ObjectId;
 // var data=require("./data");
+app.use(express.static(__dirname + '/public'));
+
+
+app.use(function(req, res, next) {
+        res.header('Access-Control-Allow-Origin', "*");
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept"');
+        next();
+});
 
 var logger = require("morgan");
 app.use(logger("dev"));
@@ -133,7 +142,14 @@ app.post('/api/shoes/sold/:id', function(req, res) {
           })
 })
 
-
+app.use(function(err,req,res,next){
+  res.status(err.status || 500);
+  res.json({
+    error:{
+      message:err.message
+    }
+  })
+})
 
 
 
@@ -180,6 +196,7 @@ app.post('/api/shoes/sold/:id', function(req, res) {
           }, function(err, results) {
             if (err) {
               console.log(err);
+
             } else {
 
               res.send(results)

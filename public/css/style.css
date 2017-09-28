@@ -1,6 +1,4 @@
-html{
-  background-color: skyblue;
-}
+
 
 
 #header{
@@ -19,4 +17,16 @@ img {
     border-radius: 4px;
     padding: 5px;
     width: 150px;
+}
+table {
+    margin: 10px;
+    margin-left:10%;
+
+
+},
+th, td {
+    padding: 5px;
+    border: 1px solid #999;
+}
+.search{
 }

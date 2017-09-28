@@ -3,12 +3,15 @@
 
 <head>
   <meta charset="utf-8">
+
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="normalize.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" type="text/css" href="bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="api.js">
-  <script type="text/javascript" src="handlebars-v4.0.5.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <script type="text/javascript" src="css/handlebars-v4.0.5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
 
   <title></title>
@@ -47,39 +50,63 @@
   <button type="submit" id="addStock" class="btn btn-primary">Add Stock</button>
 
   <script id="myTemplate" type="text/x-handlebars-template">
+    ***
+    {{shoes.length}}
+
+    <div id="myTable" >
+      <h1>Shoes</h1>
+      <table class="table">
+          <tr>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>in_stock</th>
+          </tr>
+          {{#each shoes}}
+          <tr>
+
+            <td>{{color}}</td>
+            <td>{{brand}}</td>
+            <td>{{price}}</td>
+            <td>{{size}}</td>
+            <td>{{in_stock}}</td>
+          </tr>
+          {{/each}}
+      </table>
 
     <select class="brandDrpDwn">
     <option class="brandTemplate" value="">Select Brand</option>
     {{#each shoes}}
-    <option class="brandTemplate" value="{{Brand}}">{{Brand}}</option>
+    <option class="brandTemplate" value="{{brand}}">{{brand}}</option>
     {{/each}}
     </select>
 
     <select class="colorDrpDwn">
     <option color="colorTemplate" value="">Select Color</option>
     {{#each shoes}}
-    <option class="colorTemplate" value="{{Color}}">{{Color}}</option>
+    <option class="colorTemplate" value="{{color}}">{{color}}</option>
     {{/each}}
    </select>
 
     <select class="sizeDrpDwn">
-        <option class="sizeTemplate" value="">Select Size</option>
+        <option class="sizeTemplate" value="">Select size</option>
         {{#each shoes}}
-        <option class="sizeTemplate" value="{{Size}}">{{Size}}</option>
+        <option class="sizeTemplate" value="{{size}}">{{Size}}</option>
         {{/each}}
         </select>
 
     <select class='priceDrDwn'>
-        <option class="priceTemplate" value="">Select Price</option>
+        <option class="priceTemplate" value="">price</option>
         {{#each shoes}}
-        <option class="priceTemplate" value="{{Price}}">{{Price}}</option>
+        <option class="priceTemplate" value="{{price}}">{{price}}</option>
         {{/each}}
         </select>
         <button type="submit" class="btn btn-primary" id="searching">Search</button>
     <br>
 
   </script>
-  <div class="addingStock">
+  <div id="addStock">
   <form>
 
     <input type="text" name="Brand" id="shoe-brand" placeholder="Enter Brand name" class="reg-firstname" aria-required="true">
@@ -93,15 +120,7 @@
     <input type="text" name="in_stock" class="reg-password" placeholder="Enter in_stock" id="shoe-price" aria-required="true">
   </form>
 </div>
-  <div class="shoeDisplay"></div>
-
-
-
-
-
-
-
-
+  <div id="shoeDisplay"></div>
 
 
 </body>
