@@ -1,5 +1,6 @@
-
-
+.form-control {
+  width: 30%;
+}
 
 #header{
   background-color: navy;
@@ -12,21 +13,42 @@ padding: 1em;
 
 
 }
+.col-md-3{
+  margin-left: 50%;
+}
+.col-md-9 {
+  /*background-color: tomato;*/
+margin-right: 50%;
+margin-botto: 100%;
+}
+
+/*<!-- <button value="_id" type="button" class="btn btn-default btn-sm">
+<span class="glyphicon glyphicon-shopping-cart"></span> -->*/
+#inputWarning{
+  width: 30%;
+}
+#ShoeTemplate{
+margin-left: 30%;
+}
 img {
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
     width: 150px;
 }
-table {
-    margin: 10px;
-    margin-left:10%;
+
+
+.table{
+
+  bottom: 50%;
+  /*text-align: center;
+    width: 2em;
+    margin: 0 auto;
+    border-color: red;*/
 
 
 },
 th, td {
     padding: 5px;
-    border: 1px solid #999;
-}
-.search{
+    border: 1px solid;
 }

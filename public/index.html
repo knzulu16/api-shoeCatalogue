@@ -1,17 +1,18 @@
-<!DOCTYPE html>
 <html>
 
 <head>
+  <!DOCTYPE html>
   <meta charset="utf-8">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css" rel="stylesheet" integrity="sha384-GC77SCz5O11gVtXl0sSfbQYEWSSznn1wPDHgL1BGUTFU9iEoUrG4IOJa5CBVY8kR" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
-
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <script type="text/javascript" src="css/handlebars-v4.0.5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
 
   <title></title>
@@ -19,6 +20,8 @@
 </head>
 
 <body>
+
+
   <div class="row">
 
     <div class="col-xs-4">
@@ -46,84 +49,110 @@
       <p> Price:3000</p>
     </div>
   </div>
-  <br></br>
-  <button type="submit" id="addStock" class="btn btn-primary">Add Stock</button>
+  <div id="tempContainer">
 
-  <script id="myTemplate" type="text/x-handlebars-template">
-    ***
-    {{shoes.length}}
+    <div class="row">
+      <div class="col">
+      <div class="col-md-9">
 
-    <div id="myTable" >
-      <h1>Shoes</h1>
-      <table class="table">
-          <tr>
-            <th>Brand</th>
-            <th>Color</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th>in_stock</th>
-          </tr>
-          {{#each shoes}}
-          <tr>
-
-            <td>{{color}}</td>
-            <td>{{brand}}</td>
-            <td>{{price}}</td>
-            <td>{{size}}</td>
-            <td>{{in_stock}}</td>
-          </tr>
-          {{/each}}
-      </table>
-
-    <select class="brandDrpDwn">
+        <script id="ShoeTemplate" type="text/x-handlebars-template">
+          *** {{shoes.length}}
+          <div class="table-responsive">
+          <table class="table table-striped table-list-search" style="word-wrap: break-word; min-width: 200px; max-width: 500px">
+            <tr>
+              <th class="active">Brand</th>
+              <th class="active">Color</th>
+              <th class="active">Size</th>
+              <th class="active">Price</th>
+              <th class="active">in_stock</th>
+            </tr>
+            {{#each shoes}}
+            <tr>
+              <td class="active">{{brand}}</td>
+              <td class="active">{{color}}</td>
+              <td class="active">{{size}}</td>
+              <td class="active">{{price}}
+              </td>
+              <td class="active">{{in_stock}}</td>
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+          <div class="filterBrand" id="left-well">
+            <select id="brandDrpDwn">
     <option class="brandTemplate" value="">Select Brand</option>
     {{#each shoes}}
-    <option class="brandTemplate" value="{{brand}}">{{brand}}</option>
+    <option id="brandTemplate" value="{{brand}}">{{brand}}</option>
     {{/each}}
     </select>
 
-    <select class="colorDrpDwn">
+            <select id="colorDrpDwn">
     <option color="colorTemplate" value="">Select Color</option>
     {{#each shoes}}
     <option class="colorTemplate" value="{{color}}">{{color}}</option>
     {{/each}}
    </select>
 
-    <select class="sizeDrpDwn">
+            <select id="sizeDrpDwn">
         <option class="sizeTemplate" value="">Select size</option>
         {{#each shoes}}
-        <option class="sizeTemplate" value="{{size}}">{{Size}}</option>
+        <option class="sizeTemplate" value="{{size}}">{{size}}</option>
         {{/each}}
         </select>
 
-    <select class='priceDrDwn'>
+            <select id='priceDrDwn'>
         <option class="priceTemplate" value="">price</option>
         {{#each shoes}}
         <option class="priceTemplate" value="{{price}}">{{price}}</option>
         {{/each}}
-        </select>
-        <button type="submit" class="btn btn-primary" id="searching">Search</button>
-    <br>
+      </select>
+            <button type="button" onclic="filters()" class="btn btn-primary" id="searchBtn">Search</button>
+            <br>
 
-  </script>
-  <div id="addStock">
-  <form>
+          </div>
+        </script>
+      </div>
+        <div id="addingStock">
+          <form class="form-group jumbotron-fluid">
+            <div class="row">
+              <div class="col">
+              <div class="col-sm-3">
 
-    <input type="text" name="Brand" id="shoe-brand" placeholder="Enter Brand name" class="reg-firstname" aria-required="true">
-    <br>
-    <input type="text" name="Color" id="shoe-color" placeholder="Enter color " class="reg-firstname" aria-required="true">
-    <br>
-    <input type="text" name="Size" id="shoe-size" placeholder="Enter Size" class="reg-firstname" aria-required="true">
-    <br>
-    <input type="text" name="Price" id="shoe-price" class="reg-lastname" placeholder="Enter Price" aria-required="true" >
-    <br>
-    <input type="text" name="in_stock" class="reg-password" placeholder="Enter in_stock" id="shoe-price" aria-required="true">
-  </form>
-</div>
-  <div id="shoeDisplay"></div>
+                <label>Add brand:</label>
+
+                <input type="text" id="shoe-brand" required placeholder="Enter Brand name">
+
+                <label>Add color:</label>
+
+                <input type="text" id="shoe-color" required placeholder="Enter color " class="reg-firstname">
+
+                <label>Add size:</label>
+
+                <input type="text" id="shoe-size" required placeholder="Enter Size" class="reg-firstname">
+
+                <label>Add price:</label>
+
+                <input type="text" id="shoe-price" required class="reg-lastname" placeholder="Enter Price">
+                <br></br>
+                <label>in_stock:</label>
+
+                <input type="text" required placeholder="Enter in_stock" id="in_stock">
+                <button id="addStock" class="btn btn-primary">Add Stock</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+    <div id="shoeDisplay"></div>
+  </div>
 
 
 </body>
-<script src="api.js" charset="utf-8"></script>
+<script src="api.js" type="text/javascript"></script>
 
 </html>

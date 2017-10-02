@@ -1,16 +1,16 @@
-var express=require("express");
-var router=express.Router();
+var express = require("express");
+var router = express.Router();
 
 
 
 
 var mongoose = require('mongoose');
-var Schema=mongoose.Schema;
+var Schema = mongoose.Schema;
 const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost/API_SHOE";
 
-mongoose.connect(mongoURL,{
-  useMongoClient:true
-},function(err) {
+mongoose.connect(mongoURL, {
+  useMongoClient: true
+}, function(err) {
   if (err) {
     console.log('error connection');
   } else {
@@ -19,13 +19,13 @@ mongoose.connect(mongoURL,{
 });
 
 
-exports.keepData=mongoose.model('keepdatas',{
+exports.keepData = mongoose.model('keepData', {
 
- color :String,
-brand : String,
-price : Number,
-  size : Number,
-in_stock : Number
+  brand: String,
+  color: String,
+  price: Number,
+  size: Number,
+  in_stock: Number
 });
 
 
