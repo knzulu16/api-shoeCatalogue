@@ -61,6 +61,8 @@ app.get('/api/shoes/brand/:brandname', function(req, res) {
 })
 
 
+
+
 app.get('/api/shoes/size/:size', function(req, res) {
   var size = req.params.size;
   shoeRec.keepData.find({
@@ -68,13 +70,64 @@ app.get('/api/shoes/size/:size', function(req, res) {
   }, function(err, results) {
     if (err) {
       console.log(err);
-    } else if (results) {
+    } else {
       res.json({
         size: results
       })
     }
   })
 })
+
+
+// getting all the brands
+
+app.get('/api/shoes/brand', function(req, res) {
+  shoeRec.keepData.find({}, function(err, allBrands) {
+    var brands=[];
+    var brandMap={};
+    for(var i=0;i<allBrands.length;i++){
+      if(brandMap[allBrands[i]]==undefined){
+        brandMap[allBrands[i].brand]=allBrands[i].brand;
+        brands.push(allBrands[i].brand);
+      }
+    }
+   if (err) {
+      console.log(err);
+    } else {
+      res.json({
+        brands
+      })
+    }
+  })
+})
+
+
+// getting all the sizes
+app.get('/api/shoes/size', function(req, res) {
+  shoeRec.keepData.find({}, function(err, allSizes) {
+    var sizes=[];
+    var sizeMap={};
+    for(var i=0;i<allSizes.length;i++){
+      if(sizeMap[allSizes[i]]==undefined){
+        sizeMap[allSizes[i].size]=allSizes[i].size;
+        sizes.push(allSizes[i].size);
+      }
+}
+  if (err) {
+      console.log(err);
+    } else {
+      res.json({
+        sizes
+      })
+    }
+  })
+})
+
+
+
+
+
+
 
 
 app.get('/api/shoes/brand/:brandname/size/:size', function(req, res) {
@@ -105,7 +158,8 @@ app.post('/api/shoes/sold/:id', function(req, res) {
       "in_stock": -1
     }
   }, {
-    upsert: false
+    upsert: false,
+    new: true
 
   }, function(err, results) {
     if (err) {
@@ -127,7 +181,7 @@ app.post('/api/shoes/sold/:id', function(req, res) {
       })
     } else {
       //  in_stock:results
-
+console.log(results);
       res.json({
         status: "success",
         data: results
@@ -172,12 +226,6 @@ app.post('/api/shoes', function(req, res) {
   var shoes = req.body
 
   shoeRec.keepData.findOne({
-
-    brand: shoes.brand,
-    color: shoes.color,
-    price: shoes.price,
-    size: shoes.size,
-    in_stock: shoes.in_stock
   }, function(err, shoeCase) {
     if (err) {
       console.log(err);

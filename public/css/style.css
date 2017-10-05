@@ -30,6 +30,9 @@ margin-botto: 100%;
 #ShoeTemplate{
 margin-left: 30%;
 }
+.col-sm-3{
+  margin-left: 10%;
+}
 img {
     border: 1px solid #ddd;
     border-radius: 4px;

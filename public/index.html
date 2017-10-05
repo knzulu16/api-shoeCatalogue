@@ -1,7 +1,7 @@
 <html>
 
-<head>
   <!DOCTYPE html>
+  <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -24,31 +24,7 @@
 
   <div class="row">
 
-    <div class="col-xs-4">
-      <img class="img-responsive" src="nike-0152-966771-2-detail.jpg" alt="nike" style="width:150px">
-      <p>Brand:Nike</p>
-      <p>Color:Black</p>
-      <p>Size:7</p>
-      <p> Price:1500</p>
-    </div>
 
-    <div class="col-xs-4">
-      <img class="img-responsive" src="20942074_0340_0340.jpg" alt="nike" style="width:150px">
-      <p>Brand:Lacoste</p>
-      <p>Color:Brown</p>
-      <p>Size:6</p>
-      <p> Price:2000</p>
-
-    </div>
-
-    <div class="col-xs-4">
-      <img class="img-responsive" src="adidas-2865-577591-1-catalog1.jpg" alt="nike" style="width:150px">
-      <p>Brand:Adidas</p>
-      <p>Color:Grey</p>
-      <p>Size:5</p>
-      <p> Price:3000</p>
-    </div>
-  </div>
   <div id="tempContainer">
 
     <div class="row">
@@ -72,41 +48,44 @@
               <td class="active">{{color}}</td>
               <td class="active">{{size}}</td>
               <td class="active">{{price}}
+                 <button value={{_id}} onclick='purchaseShoe("{{_id}}")' id="shoePur" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
               </td>
               <td class="active">{{in_stock}}</td>
             </tr>
             {{/each}}
           </table>
         </div>
-          <div class="filterBrand" id="left-well">
-            <select id="brandDrpDwn">
+          <div class="filter" id="left-well">
+            <select onchange="filter()" id="brandDrpDwn">
     <option class="brandTemplate" value="">Select Brand</option>
     {{#each shoes}}
-    <option id="brandTemplate" value="{{brand}}">{{brand}}</option>
+    <option  id="brandOpt" value="{{brand}}">{{brand}}</option>
     {{/each}}
     </select>
 
             <select id="colorDrpDwn">
-    <option color="colorTemplate" value="">Select Color</option>
+    <option  onchange="" color="colorTemplate" value="">Select Color</option>
     {{#each shoes}}
-    <option class="colorTemplate" value="{{color}}">{{color}}</option>
+    <option  onchange="" class="colorTemplate" value="{{color}}">{{color}}</option>
     {{/each}}
    </select>
 
-            <select id="sizeDrpDwn">
+            <select  onchange="filterSize()" id="sizeDrpDwn">
         <option class="sizeTemplate" value="">Select size</option>
         {{#each shoes}}
-        <option class="sizeTemplate" value="{{size}}">{{size}}</option>
+        <option  class="sizeTemplate" value="{{size}}">{{size}}</option>
         {{/each}}
         </select>
 
             <select id='priceDrDwn'>
-        <option class="priceTemplate" value="">price</option>
+        <option  onchange="" class="priceTemplate" value="">price</option>
         {{#each shoes}}
-        <option class="priceTemplate" value="{{price}}">{{price}}</option>
+        <option  onchange="" class="priceTemplate" value="{{price}}">{{price}}</option>
         {{/each}}
       </select>
-            <button type="button" onclic="filters()" class="btn btn-primary" id="searchBtn">Search</button>
+      <!-- <button id="searchBtn" onclick="filterSize()"  class="btn btn-primary" onclick="filter()">Search</button> -->
+
             <br>
 
           </div>
@@ -120,7 +99,7 @@
 
                 <label>Add brand:</label>
 
-                <input type="text" id="shoe-brand" required placeholder="Enter Brand name">
+                <input type="text" id="shoe-brand" required placeholder="Enter Brand name" >
 
                 <label>Add color:</label>
 
@@ -136,7 +115,7 @@
                 <br></br>
                 <label>in_stock:</label>
 
-                <input type="text" required placeholder="Enter in_stock" id="in_stock">
+                <input type="text" required placeholder="Enter in_stock" id="in_stock" >
                 <button id="addStock" class="btn btn-primary">Add Stock</button>
               </div>
             </div>
@@ -147,8 +126,8 @@
       </div>
 
     </div>
-
-    <div id="shoeDisplay"></div>
+<div id="buyDisplay"></div>
+<div id="shoeDisplay"></div>
   </div>
 
 
