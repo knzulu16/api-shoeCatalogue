@@ -21,15 +21,18 @@ app.use(logger("dev"));
 
 
 app.use(JsonParser.json());
-app.use(JsonParser.urlencoded({extended: true}));
+app.use(JsonParser.urlencoded({
+  extended: true
+}));
 
 
 app.get('/api/shoes', function(req, res) {
   shoeRec.keepData.find({}, function(err, shoeCase) {
+    // sort({A:B})
     if (err) {
       console.log(err);
     } else {
-
+      //  shoeCase.sort({'A':'B'})
       res.json({
         shoeCase
 
@@ -81,49 +84,72 @@ app.get('/api/shoes/size/:size', function(req, res) {
 
 // getting all the brands
 
-app.get('/api/shoes/brand', function(req, res) {
-  shoeRec.keepData.find({}, function(err, allBrands) {
-    var brands=[];
-    var brandMap={};
-    for(var i=0;i<allBrands.length;i++){
-      if(brandMap[allBrands[i]]==undefined){
-        brandMap[allBrands[i].brand]=allBrands[i].brand;
-        brands.push(allBrands[i].brand);
-      }
-    }
-   if (err) {
-      console.log(err);
-    } else {
-      res.json({
-        brands
-      })
-    }
-  })
-})
+// app.get('/api/shoes/brand', function(req, res) {
+//   shoeRec.keepData.find({}, function(err, allBrands) {
+//     var brands=[];
+//     var brandMap={};
+//     for(var i=0;i<allBrands.length;i++){
+//       if(brandMap[allBrands[i]]==undefined){
+//         brandMap[allBrands[i].brand]=allBrands[i].brand;
+//         brands.push(allBrands[i].brand);
+//
+//       }
+//     }
+//    if (err) {
+//       console.log(err);
+//     } else {
+//       res.json({
+//         brands:brands.sort()
+//       })
+//     }
+//   })
+// })
 
 
 // getting all the sizes
-app.get('/api/shoes/size', function(req, res) {
-  shoeRec.keepData.find({}, function(err, allSizes) {
-    var sizes=[];
-    var sizeMap={};
-    for(var i=0;i<allSizes.length;i++){
-      if(sizeMap[allSizes[i]]==undefined){
-        sizeMap[allSizes[i].size]=allSizes[i].size;
-        sizes.push(allSizes[i].size);
-      }
-}
-  if (err) {
-      console.log(err);
-    } else {
-      res.json({
-        sizes
-      })
-    }
-  })
-})
-
-
+// app.get('/api/shoes/size', function(req, res) {
+//   shoeRec.keepData.find({}, function(err, allSizes) {
+//     var sizes=[];
+//     var sizeMap={};
+//     for(var i=0;i<allSizes.length;i++){
+//       if(sizeMap[allSizes[i]]==undefined){
+//         sizeMap[allSizes[i].size]=allSizes[i].size;
+//
+//         sizes.push(allSizes[i].size);
+//
+//       }
+// }
+//   if (err){
+//       console.log(err);
+//     }else {
+//       res.json({
+//         sizes:sizes.sort()
+//       })
+//     }
+//   })
+// })
+//
+// app.get('/api/shoes/color', function(req, res) {
+//   shoeRec.keepData.find({}, function(err, allColors) {
+//     var colors=[];
+//     var colorMap={};
+//     for(var i=0;i<allColors.length;i++){
+//       if(colorMap[allColors[i]]==undefined){
+//         colorMap[allColors[i].colors]=allColors[i].colors;
+//
+//         colors.push(allColors[i].colors);
+//
+//       }
+// }
+//   if (err){
+//       console.log(err);
+//     }else {
+//       res.json({
+//         colors:colors.sort()
+//       })
+//     }
+//   })
+// })
 
 
 
@@ -181,7 +207,7 @@ app.post('/api/shoes/sold/:id', function(req, res) {
       })
     } else {
       //  in_stock:results
-console.log(results);
+      console.log(results);
       res.json({
         status: "success",
         data: results
@@ -223,36 +249,43 @@ console.log(results);
 
 
 app.post('/api/shoes', function(req, res) {
-  var shoes = req.body
+  var shoes = req.body;
+  var brand = shoes.brand;
+  var color = shoes.color;
+  var price = shoes.price;
+  var size = shoes.size;
+  var in_stock = shoes.in_stock;
 
-  shoeRec.keepData.findOne({
+  shoeRec.keepData.findOneAndUpdate({
+    brand: brand,
+    color: color,
+    price: price,
+    size: size,
+  }, {
+    $inc: {
+      in_stock: in_stock
+
+    }
   }, function(err, shoeCase) {
     if (err) {
       console.log(err);
-    } else {
+    } else if (!shoeCase) {
       shoeRec.keepData.create({
-
-        brand: shoes.brand,
-        color: shoes.color,
-        price: shoes.price,
-        size: shoes.size,
-        in_stock: shoes.in_stock
-      }, function(err, results) {
+        brand: brand,
+        color: color,
+        price: price,
+        size: size,
+        in_stock: in_stock
+      }, function(err) {
         if (err) {
           console.log(err);
-
-        } else {
-
-          res.send({
-            data: results,
-            status: 200
-          })
         }
-      })
+      });
     }
-
-  })
-
+    res.json({
+      results: shoeCase
+    });
+  });
 });
 
 

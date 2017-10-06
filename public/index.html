@@ -59,8 +59,8 @@
           <div class="filter" id="left-well">
             <select onchange="filter()" id="brandDrpDwn">
     <option class="brandTemplate" value="">Select Brand</option>
-    {{#each shoes}}
-    <option  id="brandOpt" value="{{brand}}">{{brand}}</option>
+    {{#each brandMap}}
+    <option  id="brandOpt" value="{{brand}}">{{this}}</option>
     {{/each}}
     </select>
 
