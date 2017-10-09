@@ -28,11 +28,11 @@ app.use(JsonParser.urlencoded({
 
 app.get('/api/shoes', function(req, res) {
   shoeRec.keepData.find({}, function(err, shoeCase) {
-    // sort({A:B})
+
     if (err) {
       console.log(err);
     } else {
-      //  shoeCase.sort({'A':'B'})
+
       res.json({
         shoeCase
 
@@ -191,23 +191,16 @@ app.post('/api/shoes/sold/:id', function(req, res) {
     if (err) {
       console.log(err);
 
-      // else  if (!results) {
-      // var newShoe = new shoeRec.keepData({
-      //   _id: ObjectId(id)
-      // },{
-      //   $inc:{
-      //     "in_stock":1
-      //   }
-      // })
-      // newShoe.save(function(err, results) {
+
       return res.json({
         status: "error",
         error: err,
         data: []
       })
     } else {
-      //  in_stock:results
-      console.log(results);
+      if(results.in_stock<=1){
+        results.remove();
+      }
       res.json({
         status: "success",
         data: results
@@ -284,6 +277,7 @@ app.post('/api/shoes', function(req, res) {
     }
     res.json({
       results: shoeCase
+
     });
   });
 });

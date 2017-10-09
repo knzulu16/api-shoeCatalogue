@@ -1,7 +1,8 @@
 <html>
 
-  <!DOCTYPE html>
-  <head>
+<!DOCTYPE html>
+
+<head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -25,110 +26,110 @@
   <div class="row">
 
 
-  <div id="tempContainer">
+    <div class="Container">
 
-    <div class="row">
-      <div class="col">
-      <div class="col-md-9">
+      <div class="row">
 
-        <script id="ShoeTemplate" type="text/x-handlebars-template">
-          *** {{shoes.length}}
-          <div class="table-responsive">
-          <table class="table table-striped table-list-search" style="word-wrap: break-word; min-width: 200px; max-width: 500px">
-            <tr>
-              <th class="active">Brand</th>
-              <th class="active">Color</th>
-              <th class="active">Size</th>
-              <th class="active">Price</th>
-              <th class="active">in_stock</th>
-            </tr>
-            {{#each shoes}}
-            <tr>
-              <td class="active">{{brand}}</td>
-              <td class="active">{{color}}</td>
-              <td class="active">{{size}}</td>
-              <td class="active">{{price}}
-                 <button value={{_id}} onclick='purchaseShoe("{{_id}}")' id="shoePur" class="btn btn-default btn-sm">
+
+            <script id="ShoeTemplate" type="text/x-handlebars-template">
+
+              *** {{shoes.length}}
+              <div class="row">
+                <div class="col-sm-4">
+              <div class="table-responsive">
+                <table class="table table-striped table-list-search" style="word-wrap: break-word; min-width: 200px; max-width: 500px">
+                  <tr>
+                    <th class="active">Brand</th>
+                    <th class="active">Color</th>
+                    <th class="active">Size</th>
+                    <th class="active">Price</th>
+                    <th class="active">in_stock</th>
+                  </tr>
+                  {{#each shoes}}
+                  <tr>
+                    <td class="active">{{brand}}</td>
+                    <td class="active">{{color}}</td>
+                    <td class="active">{{size}}</td>
+                    <td class="active">{{price}}
+                      <button value={{_id}} onclick='purchaseShoe("{{_id}}")' id="shoePur" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
               </td>
               <td class="active">{{in_stock}}</td>
             </tr>
             {{/each}}
           </table>
+          </div>
         </div>
-          <div class="filter" id="left-well">
+
+            <div class="col-sm-4">
+
             <select onchange="filter()" id="brandDrpDwn">
-    <option class="brandTemplate" value="">Select Brand</option>
-    {{#each brandMap}}
-    <option  id="brandOpt" value="{{brand}}">{{this}}</option>
-    {{/each}}
-    </select>
-
-            <select id="colorDrpDwn">
-    <option  onchange="" color="colorTemplate" value="">Select Color</option>
-    {{#each shoes}}
-    <option  onchange="" class="colorTemplate" value="{{color}}">{{color}}</option>
-    {{/each}}
-   </select>
-
+            <option class="brandTemplate" value="">Select Brand</option>
+            {{#each brandMap}}
+            <option  id="brandOpt" value="{{brand}}">{{this}}</option>
+            {{/each}}
+             </select>
             <select  onchange="filterSize()" id="sizeDrpDwn">
-        <option class="sizeTemplate" value="">Select size</option>
-        {{#each shoes}}
-        <option  class="sizeTemplate" value="{{size}}">{{size}}</option>
-        {{/each}}
-        </select>
+            <option class="sizeTemplate" value="">Select size</option>
+           {{#each sizeMap}}
+           <option id="sizeOpt" value="{{size}}">{{this}}</option>
+            {{/each}}
+             </select>
+           </div>
+           </div>
 
-            <select id='priceDrDwn'>
-        <option  onchange="" class="priceTemplate" value="">price</option>
-        {{#each shoes}}
-        <option  onchange="" class="priceTemplate" value="{{price}}">{{price}}</option>
-        {{/each}}
-      </select>
       <!-- <button id="searchBtn" onclick="filterSize()"  class="btn btn-primary" onclick="filter()">Search</button> -->
 
-            <br>
+                      <br>
 
-          </div>
-        </script>
-      </div>
-        <div id="addingStock">
-          <form class="form-group jumbotron-fluid">
-            <div class="row">
-              <div class="col">
-              <div class="col-sm-3">
-
-                <label>Add brand:</label>
-
-                <input type="text" id="shoe-brand" required placeholder="Enter Brand name" >
-
-                <label>Add color:</label>
-
-                <input type="text" id="shoe-color" required placeholder="Enter color " class="reg-firstname">
-
-                <label>Add size:</label>
-
-                <input type="text" id="shoe-size" required placeholder="Enter Size" class="reg-firstname">
-
-                <label>Add price:</label>
-
-                <input type="text" id="shoe-price" required class="reg-lastname" placeholder="Enter Price">
-                <br></br>
-                <label>in_stock:</label>
-
-                <input type="text" required placeholder="Enter in_stock" id="in_stock" >
-                <button id="addStock" class="btn btn-primary">Add Stock</button>
               </div>
+            </script>
+
+
+          <div id="addingStock">
+            <form class="form-group">
+              <div class="row">
+                <!-- <div class="col"> -->
+                  <div class="col-sm-4">
+
+
+                    <div class="form-group">
+                      <label class="control-label" for="focusedInput">Add brand:</label>
+                      <input class="form-control" type="text" id="shoe-brand"  type="text" required placeholder="Enter Brand name">
+                    </div>
+
+  
+
+                    <label>Add color:</label>
+
+                    <input type="text"  id="shoe-color" required placeholder="Enter color " class="form-control">
+
+                    <label>Add size:</label>
+
+                    <input type="text" id="shoe-size" required placeholder="Enter Size" class="form-control">
+
+                    <label>Add price:</label>
+
+                    <input type="text" id="shoe-price" required class="form-control" placeholder="Enter Price">
+
+                    <label>in_stock:</label>
+
+                    <input type="text" required placeholder="Enter in_stock" id="in_stock" class="form-control">
+                  <br></br>
+                    <button id="addStock" class="btn btn-primary">Add Stock</button>
+                  </div>
+                <!-- </div> -->
+
+            </form>
             </div>
-
-          </form>
+          </div>
         </div>
-      </div>
-      </div>
 
+      </div>
     </div>
-<div id="buyDisplay"></div>
-<div id="shoeDisplay"></div>
-  </div>
+      <div id="buyDisplay"></div>
+      <div id="shoeDisplay"></div>
+    </div>
 
 
 </body>

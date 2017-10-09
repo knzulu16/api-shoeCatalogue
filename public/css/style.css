@@ -3,7 +3,7 @@
 }
 
 #header{
-  background-color: navy;
+  /*background-color: navy;*/
 
   width: 100%;
   color:white;
@@ -19,12 +19,12 @@ padding: 1em;
 .col-md-9 {
   /*background-color: tomato;*/
 margin-right: 50%;
-margin-botto: 100%;
+margin-bottom: 100%;
 }
 
 /*<!-- <button value="_id" type="button" class="btn btn-default btn-sm">
 <span class="glyphicon glyphicon-shopping-cart"></span> -->*/
-#inputWarning{
+.form-control{
   width: 30%;
 }
 #ShoeTemplate{
