@@ -190,23 +190,29 @@ app.post('/api/shoes/sold/:id', function(req, res) {
   }, function(err, results) {
     if (err) {
       console.log(err);
-
-
       return res.json({
         status: "error",
         error: err,
         data: []
       })
-    } else {
-      if(results.in_stock<=1){
+    }
+      if(results.in_stock<1){
+        console.log('results', results.in_stock);
         results.remove();
+        res.json({
+          status: "success",
+          
+        })
       }
+      else {
+
       res.json({
         status: "success",
         data: results
       })
-
     }
+
+
   })
 })
 

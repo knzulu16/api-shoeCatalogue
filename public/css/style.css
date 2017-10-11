@@ -22,10 +22,15 @@ margin-right: 50%;
 margin-bottom: 100%;
 }
 
+
+
+.Container{
+  color:white;
+}
 /*<!-- <button value="_id" type="button" class="btn btn-default btn-sm">
 <span class="glyphicon glyphicon-shopping-cart"></span> -->*/
 .form-control{
-  width: 30%;
+  width: 70%;
 }
 #ShoeTemplate{
 margin-left: 30%;
@@ -39,16 +44,19 @@ img {
     padding: 5px;
     width: 150px;
 }
+ input {
+    width: 120px
+}
 
 
 .table{
-
+  width: 80%;
   bottom: 50%;
   /*text-align: center;
     width: 2em;
     margin: 0 auto;
     border-color: red;*/
-
+color:white;
 
 },
 th, td {
