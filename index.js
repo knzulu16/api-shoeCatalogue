@@ -2,7 +2,7 @@
 var express = require("express");
 var app = express();
 var JsonParser = require("body-parser");
-var shoeRec = require("./routes");
+var shoeRec = require("./models");
 var ObjectId = require('mongodb').ObjectId;
 // var data=require("./data");
 app.use(express.static(__dirname + '/public'));
@@ -196,12 +196,13 @@ app.post('/api/shoes/sold/:id', function(req, res) {
         data: []
       })
     }
-      if(results.in_stock<1){
+      if(results.in_stock<=0){
         console.log('results', results.in_stock);
         results.remove();
+      
         res.json({
           status: "success",
-          
+
         })
       }
       else {
