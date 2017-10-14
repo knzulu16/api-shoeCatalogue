@@ -1,6 +1,5 @@
 <html>
 
-<!DOCTYPE html>
 
 <head>
   <meta charset="utf-8">
@@ -14,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css" rel="stylesheet" integrity="sha384-GC77SCz5O11gVtXl0sSfbQYEWSSznn1wPDHgL1BGUTFU9iEoUrG4IOJa5CBVY8kR" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.5/popper.min.js"></script>
+
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -26,12 +25,9 @@
 </head>
 
 <body>
-
-
   <div class="Container">
     <div class="row">
-
-      <script id="ShoeTemplate" type="text/x-handlebars-template">
+    <script id="ShoeTemplate" type="text/x-handlebars-template">
 
         *** {{shoes.length}}
         <div class="col-sm-4">
@@ -59,31 +55,33 @@
           </table>
           </div>
         </div>
-
+      </script>
+ <script id="brandTemplate" type="text/x-handlebars-template">
             <div class="col-sm-4">
-
-            <select class="form-control" onchange="filter()" id="brandDrpDwn">
-            <option class="brandTemplate" value="">Select Brand</option>
+            <select class="form-control" onchange='filterbyBrand()' id="brandDrpDwn">
+            <option id="brandTemplate" value="">Select Brand</option>
             {{#each brandMap}}
-            <option  id="brandOpt" value="{{brand}}">{{this}}</option>
+            <option  id="brandOpt" value="{{brand}}">{{this.brand}}</option>
             {{/each}}
              </select>
-
-            <select class="form-control" onchange="filterSize()" id="sizeDrpDwn">
+           </div>
+           </script>
+<script id="sizeTemplate" type="text/x-handlebars-template">
+           <div class="col-sm-4">
+            <select onchange='filterbySize()' class="form-control" id="sizeDrpDwn">
             <option class="sizeTemplate" value="">Select size</option>
            {{#each sizeMap}}
-           <option id="sizeOpt" value="{{size}}">{{this}}</option>
+           <option id="sizeOpt" value="{{size}}">{{this.size}}</option>
             {{/each}}
              </select>
            </div>
           <br>
           </div>
-            </script>
+   </script>
 
 
 
-
-<br></br>
+      <br></br>
 
         <!-- Button trigger modal -->
         <div class="row">
@@ -148,7 +146,8 @@
           </div>
         </div>
 
-        <div id="buyDisplay"></div>
+        <div id="brandDisplay"></div>
+        <div id="sizeDisplay"></div>
         <div id="shoeDisplay"></div>
     </div>
 </body>

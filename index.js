@@ -84,26 +84,35 @@ app.get('/api/shoes/size/:size', function(req, res) {
 
 // getting all the brands
 
-// app.get('/api/shoes/brand', function(req, res) {
-//   shoeRec.keepData.find({}, function(err, allBrands) {
-//     var brands=[];
-//     var brandMap={};
-//     for(var i=0;i<allBrands.length;i++){
-//       if(brandMap[allBrands[i]]==undefined){
-//         brandMap[allBrands[i].brand]=allBrands[i].brand;
-//         brands.push(allBrands[i].brand);
-//
-//       }
-//     }
-//    if (err) {
-//       console.log(err);
-//     } else {
-//       res.json({
-//         brands:brands.sort()
-//       })
-//     }
-//   })
-// })
+app.get('/api/shoes/sizes', function(req, res) {
+  shoeRec.keepData.find({}, function(err, allSizes) {
+
+
+
+   if (err) {
+      console.log(err);
+    } else {
+      res.json({
+
+        size:allSizes.sort("1-12")
+      })
+    }
+  })
+})
+
+
+app.get('/api/shoes/brands', function(req, res) {
+  shoeRec.keepData.find({}, function(err, allBrands) {
+
+   if (err) {
+      console.log(err);
+    } else {
+      res.json({
+        brand:allBrands.sort("A-Z")
+      })
+    }
+  })
+})
 
 
 // getting all the sizes
@@ -128,7 +137,7 @@ app.get('/api/shoes/size/:size', function(req, res) {
 //     }
 //   })
 // })
-//
+
 // app.get('/api/shoes/color', function(req, res) {
 //   shoeRec.keepData.find({}, function(err, allColors) {
 //     var colors=[];
@@ -199,7 +208,7 @@ app.post('/api/shoes/sold/:id', function(req, res) {
       if(results.in_stock<=0){
         console.log('results', results.in_stock);
         results.remove();
-      
+
         res.json({
           status: "success",
 
