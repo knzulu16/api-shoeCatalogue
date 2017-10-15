@@ -1,55 +1,56 @@
 var ShoeTemplate = document.getElementById('ShoeTemplate').innerHTML;
 var myTemplateInstance = Handlebars.compile(ShoeTemplate);
 
-var brandTemplate=document.getElementById('brandTemplate').innerHTML;
-var brandTempInstance=Handlebars.compile(brandTemplate);
+var brandTemplate = document.getElementById('brandTemplate').innerHTML;
+var brandTempInstance = Handlebars.compile(brandTemplate);
 
-var sizeTemplate=document.getElementById('sizeTemplate').innerHTML;
-var sizeTempInstance=Handlebars.compile(sizeTemplate);
+var sizeTemplate = document.getElementById('sizeTemplate').innerHTML;
+var sizeTempInstance = Handlebars.compile(sizeTemplate);
 
-var brandTemplate=document.querySelector('.brandTemplate');
+var brandTemplate = document.querySelector('.brandTemplate');
 var shoeDisplay = document.getElementById('shoeDisplay');
 var addingStock = document.getElementById('addingStock');
 var addStockBtn = document.getElementById("addStock");
 var brandInput = document.getElementById('shoe-brand').value;
-var Container=document.getElementById('.Container');
-// var selectBrand = document.querySelector('#brandDrpDwn');
+var Container = document.getElementById('.Container');
+
 var allShoes = [];
 var allShoeObj = {};
 
 
 
 // displays all the shoes & get rid of duplicates in size and brand
+var brandMap = [];
+var sizeMap = [];
+
 function getAllShoe() {
   var shoeDisplay = document.getElementById('shoeDisplay');
-
+  console.log("in getAllShoe");
   $.ajax({
     url: '/api/shoes',
     type: 'GET',
     success: function(data) {
-
-      var brandMap = [];
-
-      data.shoeCase.forEach(function(currBrand) {
-        if (brandMap.indexOf(currBrand.brand) == -1) {
-          brandMap.push(currBrand.brand);
-        }
+      console.log(data.shoeCase);
+      data.shoeCase.forEach(function(currentShoe) {
+        if (brandMap.indexOf(currentShoe.brand) == -1) brandMap.push(currentShoe.brand);
+        if (sizeMap.indexOf(currentShoe.size) == -1) sizeMap.push(currentShoe.size);
       });
+      document.querySelector('#brandDrpDwn').innerHTML += brandTempInstance({ brandMap: brandMap});
+      document.querySelector('#sizeDrpDwn').innerHTML += sizeTempInstance({ sizeMap: sizeMap});
+      // console.log(brandTempInstance({
+      //   brandMap: brandMap
+      // }));
+      console.log(brandMap);
+      console.log(sizeMap);
 
-      var sizeMap = [];
-      data.shoeCase.forEach(function(currSize) {
-        if (sizeMap.indexOf(currSize.size) == -1) {
-          sizeMap.push(currSize.size);
-        }
-      })
       var shoesHtml = myTemplateInstance({
         shoes: data.shoeCase,
-        brandMap: brandMap.sort(),
-        sizeMap: sizeMap.sort()
+        brandMap,
+        sizeMap
       })
-//     var dropTemp=dropTempInstance({
-//
-// })
+      //     var dropTemp=dropTempInstance({
+      //
+      // })
       shoeDisplay.innerHTML = shoesHtml;
 
       allShoes = data.shoeCase;
@@ -109,38 +110,46 @@ addStockBtn.addEventListener('click', function() {
 
 
 
-var brandDisplay=document.getElementById('brandDisplay');
-var sizeDisplay=document.getElementById('sizeDisplay');
+var brandDisplay = document.getElementById('brandDisplay');
+var sizeDisplay = document.getElementById('sizeDisplay');
 // populating brand dropdown
-function displayDrop(){
-  $.ajax({
-    url:'/api/shoes/brands',
-    success: function(results) {
-      var tempBrand = brandTempInstance({
-        //shoes:results,
-        brandMap:results.brand
-      })
-      brandDisplay.innerHTML = tempBrand;
-    }
-  })
-}
-displayDrop();
+// function displayDrop() {
+//   $.ajax({
+//     url: '/api/shoes/brands',
+//     success: function(results) {
+//       console.log(results.brand);
+//       var tempBrand = brandTempInstance({
+//         //shoes:results,
+//         // brandMap:results.brand
+//
+//
+//
+//
+//
+//       })
+//       brandDisplay.innerHTML = tempBrand;
+//     }
+//   })
+// }
+// displayDrop();
 
 // populating size dropdown
-function displaySizeDrp(){
-  $.ajax({
-    url:'/api/shoes/sizes',
-    success: function(result) {
-      var tempSize = sizeTempInstance({
-        //shoes:results,
-        sizeMap:result.size
-      })
-      sizeDisplay.innerHTML = tempSize;
-    }
-  })
-}
-displaySizeDrp();
-
+// function displaySizeDrp() {
+//   $.ajax({
+//     url: '/api/shoes/sizes',
+//     success: function(result) {
+//       console.log(result.sizeMap);
+//       // var tempSize = sizeTempInstance({
+//       //   //shoes:results,
+//       //   sizeMap: result.size
+//       //
+//       // })
+//       sizeDisplay.innerHTML = tempSize;
+//     }
+//   })
+// }
+// displaySizeDrp();
+//
 
 
 
@@ -148,42 +157,32 @@ displaySizeDrp();
 
 
 function filterbyBrand() {
-var divDrop=document.querySelector('.col-sm-4');
-var brandTemplate=document.querySelector('#brandTemplate');
-var selectBrand = document.getElementById('brandDrpDwn').value;
-console.log(selectBrand);
-var brandOpt=document.getElementById('brandOpt').value;
-
-
+  console.log("Ochange");
+  var divDrop = document.querySelector('.col-sm-4');
+  var brandTemplate = document.querySelector('#brandTemplate');
+  var selectBrand = document.getElementById('brandDrpDwn').value;
+  console.log(selectBrand);
 
   $.ajax({
-    url:'/api/shoes/brand/'+selectBrand,
+    url: '/api/shoes/brand/' + selectBrand,
     type: 'GET',
-    dataType: 'json',
-    data:'brand',
+
     success: function(reslts) {
       alert('dfghb')
-      console.log('*********',reslts)
-      var tableTemp=myTemplateInstance({
-        shoes:reslts.brand
-        // brandMap:reslts
+      console.log('*********', reslts)
+      var tableTemp = myTemplateInstance({
+
+        shoes: reslts.brand
 
       })
       console.log(reslts);
-      shoeDisplay.innerHTML=tableTemp;
+      shoeDisplay.innerHTML = tableTemp;
     }
 
   })
 
 
 }
-
-
-
-
-
-
-
 
 
 
@@ -195,45 +194,28 @@ var brandOpt=document.getElementById('brandOpt').value;
 
 function filterbySize() {
 
-var Selectsize=document.getElementById('sizeDrpDwn').value;
-console.log(Selectsize);
+  var Selectsize = document.getElementById('sizeDrpDwn').value;
+  console.log(Selectsize);
   $.ajax({
-    url:'/api/shoes/size/'+Selectsize,
+    url: '/api/shoes/size/' + Selectsize,
     type: 'GET',
     dataType: 'json',
-    data:'size',
+    data: 'size',
     success: function(product) {
       alert('dfghb')
-      console.log('*********',product)
-      var table=myTemplateInstance({
-        shoes:product.size
-        // brandMap:reslts
+
+      var table = myTemplateInstance({
+        shoes: product.size
 
       })
-      console.log(product);
-      shoeDisplay.innerHTML=table;
+
+      shoeDisplay.innerHTML = table;
     }
 
   })
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -343,31 +325,31 @@ console.log(Selectsize);
 
 
 
-  // buy shoe function
-  function purchaseShoe(id) {
+// buy shoe function
+function purchaseShoe(id) {
 
 
-    var buyDisplay = document.querySelector('#buyDisplay');
-    console.log(buyDisplay);
-    var shoeDisplay = document.getElementById('shoeDisplay');
+  var buyDisplay = document.querySelector('#buyDisplay');
+  console.log(buyDisplay);
+  var shoeDisplay = document.getElementById('shoeDisplay');
 
-    $.ajax({
-      url: '/api/shoes/sold/' + id,
-      type: 'POST',
-      success: function(thenga) {
+  $.ajax({
+    url: '/api/shoes/sold/' + id,
+    type: 'POST',
+    success: function(thenga) {
 
-        window.location.reload();
-        allShoes.forEach(function(shoe) {
-          if (shoe._id == thenga.data._id) {
-            shoe.in_stock = thenga.data.in_stock;
-          }
-        })
-        var buyShoe = myTemplateInstance({
-          shoes: allShoes
-        })
-        shoeDisplay.innerHTML = buyShoe;
-      }
-    })
-  }
+      window.location.reload();
+      allShoes.forEach(function(shoe) {
+        if (shoe._id == thenga.data._id) {
+          shoe.in_stock = thenga.data.in_stock;
+        }
+      })
+      var buyShoe = myTemplateInstance({
+        shoes: allShoes
+      })
+      shoeDisplay.innerHTML = buyShoe;
+    }
+  })
+}
 
-  // filtering by both size and brand
+// filtering by both size and brand

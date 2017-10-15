@@ -27,7 +27,7 @@
 <body>
   <div class="Container">
     <div class="row">
-    <script id="ShoeTemplate" type="text/x-handlebars-template">
+      <script id="ShoeTemplate" type="text/x-handlebars-template">
 
         *** {{shoes.length}}
         <div class="col-sm-4">
@@ -56,28 +56,28 @@
           </div>
         </div>
       </script>
- <script id="brandTemplate" type="text/x-handlebars-template">
             <div class="col-sm-4">
             <select class="form-control" onchange='filterbyBrand()' id="brandDrpDwn">
-            <option id="brandTemplate" value="">Select Brand</option>
+            <option class="brandOpt" value="">Select Brand</option>
+            <script id="brandTemplate" type="text/x-handlebars-template">
             {{#each brandMap}}
-            <option  id="brandOpt" value="{{brand}}">{{this.brand}}</option>
+            <option  class="brandOpt" value="{{this}}">{{this}}</option>
             {{/each}}
+          </script>
              </select>
            </div>
-           </script>
-<script id="sizeTemplate" type="text/x-handlebars-template">
            <div class="col-sm-4">
             <select onchange='filterbySize()' class="form-control" id="sizeDrpDwn">
             <option class="sizeTemplate" value="">Select size</option>
+            <script id="sizeTemplate" type="text/x-handlebars-template">
            {{#each sizeMap}}
-           <option id="sizeOpt" value="{{size}}">{{this.size}}</option>
+           <option id="sizeOpt" value="{{this}}">{{this}}</option>
             {{/each}}
+          </script>
              </select>
            </div>
           <br>
           </div>
-   </script>
 
 
 
