@@ -202,13 +202,12 @@ app.post('/api/shoes/sold/:id', function(req, res) {
         data: []
       })
     }
-      if(results.in_stock<=0){
+      if(results.in_stock < 1 ) {
         console.log('results', results.in_stock);
         results.remove();
 
         res.json({
-          status: "success",
-
+          status: "removed",
         })
       }
       else {
