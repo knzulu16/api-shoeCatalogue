@@ -4,7 +4,7 @@ var app = express();
 var JsonParser = require("body-parser");
 var shoeRec = require("./models");
 var ObjectId = require('mongodb').ObjectId;
-// var data=require("./data");
+
 app.use(express.static(__dirname + '/public'));
 
 
@@ -86,9 +86,6 @@ app.get('/api/shoes/size/:size', function(req, res) {
 
 app.get('/api/shoes/sizes', function(req, res) {
   shoeRec.keepData.find({}, function(err, allSizes) {
-
-
-
    if (err) {
       console.log(err);
     } else {
