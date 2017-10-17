@@ -120,23 +120,25 @@
           </div>
       </div>
       </script>
-
+    <div class="dropCont">
             <div class="col-sm-4">
-            <select class="form-control" onchange='filterbyBrand()' id="brandDrpDwn">
-            <option class="brandOpt" value="">Select Brand</option>
+            <select class="form-control"  id="brandDrpDwn">
+            <option class="brandOpt" value="">All brands</option>
+
             <script id="brandTemplate" type="text/x-handlebars-template">
             {{#each brandMap}}
-            <option  class="brandOpt" value="{{this}}">{{this}}</option>
+            <option name="brand" class="brandOpt" value="{{this}}">{{this}}</option>
             {{/each}}
           </script>
           </select>
            </div>
            <div class="col-sm-4">
-            <select onchange='filterbySize()' class="form-control" id="sizeDrpDwn">
-            <option class="sizeTemplate" value="">Select size</option>
+            <select  class="form-control" id="sizeDrpDwn">
+
+            <option class="sizeTemplate" value="">All sizes</option>
             <script id="sizeTemplate" type="text/x-handlebars-template">
            {{#each sizeMap}}
-           <option id="sizeOpt" value="{{this}}">{{this}}</option>
+           <option id="sizeOpt" name="size" value="{{this}}">{{this}}</option>
             {{/each}}
           </script>
              </select>
