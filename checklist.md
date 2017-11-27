@@ -1,0 +1,44 @@
+# API shoe catalogues app
+
+- Introduction:
+  - About the App.
+  - what it does.
+- Tools Involve
+        - Atom editor
+        - Github
+        - MongoDB
+        - Heroku
+        - Mlab
+- File setup
+   - Local repository
+   - github repository
+   - views
+   - Public folder
+- Installations
+    - npm
+    - NodeJs
+    - ExpressJs
+- How to run the App
+         - server side
+- Which language
+     - JavaScript
+     - Html
+     - Bootstrap
+     - Ajax
+- Frame works
+    - NodeJs
+    - ExpressJs
+    - handlebars.
+- Which database?
+      - MongoDB
+- How to connect it-
+        - Use mongoose
+- Which hosted platform
+    - Heroku
+- How to deploy it?
+         - Steps on how to deploy to heroku
+- Which tool that works as a cloud?
+       - Mlab
+- How to connect to Mlab?
+      - First sign in to Mlab,
+      - steps on how to connect with database and heroku.

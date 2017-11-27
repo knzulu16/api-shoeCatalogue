@@ -165,12 +165,12 @@ console.log(Selectsize);
       type: 'GET',
       success: function(prodct) {
     if (prodct.brand[0] === undefined) {
-      shoeDisplay.innerHTML = "no shoe found";
+      shoeDisplay.innerHTML = "no shoe found!";
     } else {
       shoeDisplay.innerHTML = myTemplateInstance({
         shoes: prodct.brand
 
-      })      
+      })
     }
       }
     })
