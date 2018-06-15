@@ -36,10 +36,10 @@ function getAllShoe() {
         if (sizeMap.indexOf(currentShoe.size) == -1) sizeMap.push(currentShoe.size);
       });
       document.querySelector('#brandDrpDwn').innerHTML += brandTempInstance({
-        brandMap: brandMap.sort("A-Z")
+        brandMap: brandMap
       });
       document.querySelector('#sizeDrpDwn').innerHTML += sizeTempInstance({
-        sizeMap: sizeMap.sort("1-100")
+        sizeMap: sizeMap
       });
 
 
